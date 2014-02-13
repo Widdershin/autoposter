@@ -5,8 +5,8 @@ from flask_debugtoolbar import DebugToolbarExtension
 
 from autoposter.settings import ProdConfig
 from autoposter.assets import assets
-from autoposter.extensions import (db, login_manager, migrate,
-                                                    cache)
+from autoposter.extensions import (db, login_manager,
+                                   migrate, cache)
 from autoposter import public, user
 
 
