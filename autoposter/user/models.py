@@ -10,6 +10,7 @@ from autoposter.extensions import bcrypt
 class User(UserMixin, CRUDMixin,  db.Model):
 
     __tablename__ = 'users'
+    id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(80), unique=True, nullable=False)
     email = db.Column(db.String(80), unique=True, nullable=False)
     password = db.Column(db.String, nullable=False)  # The hashed password
@@ -18,6 +19,7 @@ class User(UserMixin, CRUDMixin,  db.Model):
     last_name = db.Column(db.String(30), nullable=True)
     active = db.Column(db.Boolean())
     is_admin = db.Column(db.Boolean())
+    posts = db.relationship("Post", backref="user")
 
     def __init__(self, username=None, email=None, password=None,
                  first_name=None, last_name=None,
@@ -56,6 +58,7 @@ class Post(CRUDMixin, db.Model):
     days = db.relationship("DaysOfWeek", backref="post")
     distinguish = db.Column(db.Boolean)
     sticky = db.Column(db.Boolean)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
 
 
 class DaysOfWeek(CRUDMixin, db.Model):
