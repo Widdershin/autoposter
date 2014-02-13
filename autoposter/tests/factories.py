@@ -2,7 +2,7 @@
 from factory import Sequence, PostGenerationMethodCall
 from factory.alchemy import SQLAlchemyModelFactory
 
-from autoposter.user.models import User
+from autoposter.user.models import User, DaysOfWeek
 from autoposter.database import db
 
 
@@ -14,3 +14,10 @@ class UserFactory(SQLAlchemyModelFactory):
     email = Sequence(lambda n: "user{0}@example.com".format(n))
     password = PostGenerationMethodCall("set_password", 'example')
     active = True
+
+
+class DaysOfWeekFactory(SQLAlchemyModelFactory):
+    FACTORY_SESSION = db.session
+    FACTORY_FOR = DaysOfWeek
+
+    days = [bool(Sequence(lambda n: n)) for _ in range(7)]
