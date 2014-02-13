@@ -5,7 +5,7 @@ from nose.tools import *  # PEP8 asserts
 from autoposter.database import db
 from autoposter.user.models import User, Post
 from .base import DbTestCase
-from .factories import UserFactory, DaysOfWeekFactory
+from .factories import UserFactory, DaysOfWeekFactory, PostFactory
 
 
 class TestUser(DbTestCase):
@@ -49,6 +49,22 @@ class TestDaysOfWeek(DbTestCase):
 
         assert_true(days.monday)
         assert_false(days.friday)
+
+
+class TestPost(DbTestCase):
+
+    def test_factory(self):
+        post = PostFactory()
+
+        assert_true(post.title)
+        assert_true(post.body)
+        assert_true(post.subreddit)
+
+    def test_days(self):
+        post = PostFactory(days=[True] + [False] * 6)
+
+        assert_true(post.days.monday)
+        assert_false(post.days.sunday)
 
 
 if __name__ == '__main__':
