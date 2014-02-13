@@ -84,9 +84,11 @@ class DaysOfWeek(CRUDMixin, db.Model):
                         primary_key=True)
 
     def __init__(self, days):
-        pass
+        self.monday, self.tuesday, self.wednesday, self.thursday, \
+            self.friday, self.saturday, self.sunday = days
 
     def __iter__(self):
-        return [self.monday, self.tuesday, self.wednesday,
-                self.thursday, self.friday, self.saturday,
-                self.sunday]
+        for day in [self.monday, self.tuesday, self.wednesday,
+                    self.thursday, self.friday, self.saturday,
+                    self.sunday]:
+            yield day
