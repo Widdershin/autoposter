@@ -69,7 +69,8 @@ class DaysOfWeek(CRUDMixin, db.Model):
     saturday = db.Column(db.Boolean)
     sunday = db.Column(db.Boolean)
 
-    post_id = db.Column(db.Integer, db.ForeignKey('posts.id'), primary_key=True)
+    post_id = db.Column(db.Integer, db.ForeignKey('posts.id'),
+                        primary_key=True)
 
     def __init__(self, days):
         pass
@@ -78,4 +79,3 @@ class DaysOfWeek(CRUDMixin, db.Model):
         return [self.monday, self.tuesday, self.wednesday,
                 self.thursday, self.friday, self.saturday,
                 self.sunday]
-
