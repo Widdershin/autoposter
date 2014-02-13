@@ -5,4 +5,10 @@
         <h1>Posts</h1>
         <button type="button" class="btn btn-default">Add</button>
     </div>
+    {% for post in posts %}
+        <div class="row">
+            <p>{{post.title}}</p>
+            <p>{{post.body}}</p>
+        </div>
+    {% endfor %}
 {% endblock %}
