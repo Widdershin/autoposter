@@ -60,6 +60,14 @@ class Post(CRUDMixin, db.Model):
     sticky = db.Column(db.Boolean)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
 
+    def __init__(self, title, subreddit, body, days=[False] * 7,
+                 distinguish=False, sticky=False):
+        self.title = title
+        self.subreddit = subreddit
+        self.body = body
+        self.days = DaysOfWeek(days)
+        self.distinguish = distinguish
+
 
 class DaysOfWeek(CRUDMixin, db.Model):
 
