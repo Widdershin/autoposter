@@ -37,6 +37,6 @@ class PostFactory(SQLAlchemyModelFactory):
     title = "test post please ignore"
     subreddit = "widdershiny"
     body = "This is a test post..."
-    days = [True] * 7
+    days = random_days
     distinguish = random.choice([True, False])
     sticky = random.choice([True, False])
