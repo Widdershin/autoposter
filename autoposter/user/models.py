@@ -55,7 +55,7 @@ class Post(CRUDMixin, db.Model):
     title = db.Column(db.String(300), nullable=False)
     subreddit = db.Column(db.String(20), nullable=False)
     body = db.Column(db.String(10000), nullable=True)
-    days = db.relationship("DaysOfWeek", backref="post")
+    days = db.relationship("DaysOfWeek", backref="post", uselist=False)
     distinguish = db.Column(db.Boolean)
     sticky = db.Column(db.Boolean)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
@@ -66,12 +66,14 @@ class Post(CRUDMixin, db.Model):
         self.subreddit = subreddit
         self.body = body
         self.days = DaysOfWeek(days)
+        self.days.save()
         self.distinguish = distinguish
 
 
 class DaysOfWeek(CRUDMixin, db.Model):
 
     __tablename__ = 'days'
+    id = db.Column(db.Integer, primary_key=True)
     monday = db.Column(db.Boolean)
     tuesday = db.Column(db.Boolean)
     wednesday = db.Column(db.Boolean)
@@ -80,8 +82,7 @@ class DaysOfWeek(CRUDMixin, db.Model):
     saturday = db.Column(db.Boolean)
     sunday = db.Column(db.Boolean)
 
-    post_id = db.Column(db.Integer, db.ForeignKey('posts.id'),
-                        primary_key=True)
+    post_id = db.Column(db.Integer, db.ForeignKey('posts.id'))
 
     def __init__(self, days):
         self.monday, self.tuesday, self.wednesday, self.thursday, \
