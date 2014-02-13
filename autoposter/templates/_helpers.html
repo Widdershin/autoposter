@@ -1,0 +1,17 @@
+{% macro render_field(field, addon) %}
+  <div class="form-group">
+    {% if addon %}
+        <span class="input-group-addon">{{addon}}<span>
+    {% endif %}
+    {{field.label}}
+    {{field(class_="form-control", **kwargs)|safe}}
+  </div>
+  {% if field.errors %}
+    <ul class=errors>
+    {% for error in field.errors %}
+      <li>{{ error }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+  </dd>
+{% endmacro %}
