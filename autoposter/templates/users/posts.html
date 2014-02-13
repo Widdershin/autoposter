@@ -3,7 +3,7 @@
 {% block content %}
     <div class="row">
         <h1>Posts</h1>
-        <button type="button" class="btn btn-default">Add</button>
+        <a class="btn btn-default" href="{{ url_for('user.add_post') }}">Add</a>
     </div>
     {% for post in posts %}
         <div class="row">

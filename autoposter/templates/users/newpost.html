@@ -1,0 +1,19 @@
+{% extends "layout.html" %}
+{% from "_helpers.html" import render_field %}
+
+{% block content %}
+    <div class="row">
+        <h2>New Form!</h2>
+    </div>
+    <div class="row">
+    <form method="POST" action="">
+        {{form.hidden_tag()}}
+        {{ render_field(form.title, placeholder="test post please ignore") }}
+        {{ render_field(form.subreddit, addon="/r/") }}
+        {{ render_field(form.body) }}
+        {{ render_field(form.distinguish) }}
+        {{ render_field(form.sticky) }}
+        <button type="submit" class="btn btn-default">Submit</button>
+    </form>
+    </div>
+{% endblock %}
