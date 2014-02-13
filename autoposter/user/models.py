@@ -20,7 +20,7 @@ class User(UserMixin, CRUDMixin,  db.Model):
     is_admin = db.Column(db.Boolean())
 
     def __init__(self, username=None, email=None, password=None,
-                first_name=None, last_name=None,
+                 first_name=None, last_name=None,
                  active=False, is_admin=False):
         self.username = username
         self.email = email
@@ -44,3 +44,38 @@ class User(UserMixin, CRUDMixin,  db.Model):
 
     def __repr__(self):
         return '<User "{username}">'.format(username=self.username)
+
+
+class Post(CRUDMixin, db.Model):
+
+    __tablename__ = 'posts'
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(300), nullable=False)
+    subreddit = db.Column(db.String(20), nullable=False)
+    body = db.Column(db.String(10000), nullable=True)
+    days = db.relationship("DaysOfWeek", backref="post")
+    distinguish = db.Column(db.Boolean)
+    sticky = db.Column(db.Boolean)
+
+
+class DaysOfWeek(CRUDMixin, db.Model):
+
+    __tablename__ = 'days'
+    monday = db.Column(db.Boolean)
+    tuesday = db.Column(db.Boolean)
+    wednesday = db.Column(db.Boolean)
+    thursday = db.Column(db.Boolean)
+    friday = db.Column(db.Boolean)
+    saturday = db.Column(db.Boolean)
+    sunday = db.Column(db.Boolean)
+
+    post_id = db.Column(db.Integer, db.ForeignKey('posts.id'), primary_key=True)
+
+    def __init__(self, days):
+        pass
+
+    def __iter__(self):
+        return [self.monday, self.tuesday, self.wednesday,
+                self.thursday, self.friday, self.saturday,
+                self.sunday]
+
