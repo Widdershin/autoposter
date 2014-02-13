@@ -6,7 +6,7 @@ python:
   - "2.7"
 
 # command to install dependencies, e.g. pip install -r requirements.txt --use-mirrors
-install: pip install -r requirements/dev.txt --allow-external twill
+install: pip install -r requirements/dev.txt --allow-external --allow-unverified twill
 
 # command to run tests, e.g. python setup.py test
 script: nosetests
