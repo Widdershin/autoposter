@@ -8,7 +8,7 @@ from flask.ext.webtest import TestApp
 from nose.tools import *  # PEP8 asserts
 
 from ..user.models import User
-from .base import DbTestCase
+from .base import DbTestCase, LoggedInUserCase
 from .factories import UserFactory
 
 
@@ -122,3 +122,26 @@ class TestRegistering(DbTestCase):
         res = form.submit()
         # sees error
         assert_in("Username already registered", res)
+
+
+class TestPostCreate(DbTestCase, LoggedInUserCase):
+    def setUp(self):
+        self.w = TestApp(self.app)
+        self.user = UserFactory(password="myprecious")
+        self.user.save()
+
+    def test_can_create(self):
+        self._login(self.w, self.user)
+
+        res = self.w.get(url_for("user.add_post"))
+
+        form = res.forms["newPost"]
+
+        form['title'] = "test post please ignore"
+        form['subreddit'] = "reddit.com"
+        form['body'] = "This is a test post."
+        form['distinguish'] = False
+        form['sticky'] = False
+
+        res = form.submit().maybe_follow()
+        return res
