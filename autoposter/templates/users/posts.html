@@ -23,7 +23,7 @@
                     </div>
                 <div class="panel-body">
                 {{post.body}}
-                <a class="btn btn-default pull-right" href="{{ url_for('user.add_post') }}">Edit</a>
+                <a class="btn btn-default pull-right" href="{{ url_for('user.edit_post', id=post.id) }}">Edit</a>
                 </div>
             </div>
         </div>

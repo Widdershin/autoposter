@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from flask import Blueprint, render_template, redirect, url_for
+from flask import Blueprint, render_template, redirect, url_for, flash
 from flask.ext.login import login_required, current_user
 from autoposter.user.models import Post
 from .forms import NewPostForm
@@ -28,6 +28,26 @@ def add_post():
 
         current_user.posts.append(new_post)
         current_user.save()
+
+        return redirect(url_for('user.posts'))
+
+    return render_template("users/newpost.html", form=form)
+
+
+@blueprint.route("/posts/edit/<id>", methods=('GET', 'POST'))
+@login_required
+def edit_post(id):
+    post = Post.query.get(id)
+
+    form = NewPostForm(obj=post)
+
+    if form.validate_on_submit():
+
+        form.populate_obj(post)
+
+        post.save()
+
+        flash("{} saved successfully!".format(post.title))
 
         return redirect(url_for('user.posts'))
 
