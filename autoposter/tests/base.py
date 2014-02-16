@@ -17,3 +17,11 @@ class DbTestCase(TestCase):
     def tearDown(self):
         db.session.remove()
         db.drop_all()
+
+
+class LoggedInUserCase(TestCase):
+    """Provides a login method to easily authorize session"""
+
+    def _login(self, app, user):
+        with app.session_transaction() as session:
+            session['user_id'] = user.id
