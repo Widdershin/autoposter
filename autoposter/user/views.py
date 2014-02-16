@@ -20,7 +20,7 @@ def add_post():
     form = NewPostForm()
 
     if form.validate_on_submit():
-        new_post = Post(**{k: v for k, v in form.data.iteritems() if v})
+        new_post = Post(**form.data.iteritems())
 
         new_post.save()
 

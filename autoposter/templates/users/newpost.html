@@ -1,19 +1,21 @@
 {% extends "layout.html" %}
-{% from "_helpers.html" import render_field %}
+{% from "_helpers.html" import render_bootstrap_field, render_bootstrap_bool %}
 
 {% block content %}
     <div class="row">
         <h2>New Form!</h2>
     </div>
     <div class="row">
-    <form method="POST" action="">
-        {{form.hidden_tag()}}
-        {{ render_field(form.title, placeholder="test post please ignore") }}
-        {{ render_field(form.subreddit, addon="/r/") }}
-        {{ render_field(form.body) }}
-        {{ render_field(form.distinguish) }}
-        {{ render_field(form.sticky) }}
-        <button type="submit" class="btn btn-default">Submit</button>
-    </form>
+        <div class="col-md-9" role="main">
+            <form method="POST" action="" role="form">
+                {{ form.hidden_tag() }}
+                {{ render_bootstrap_field(form.title, placeholder="test post please ignore") }}
+                {{ render_bootstrap_field(form.subreddit, addon="/r/") }}
+                {{ render_bootstrap_field(form.body) }}
+                {{ render_bootstrap_bool(form.distinguish) }}
+                {{ render_bootstrap_bool(form.sticky) }}
+                <button type="submit" class="btn btn-default">Submit</button>
+            </form>
+        </div>
     </div>
 {% endblock %}
