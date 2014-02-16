@@ -21,7 +21,10 @@
                         {% endif %}
                         </div>
                     </div>
-                <div class="panel-body">{{post.body}}</div>
+                <div class="panel-body">
+                {{post.body}}
+                <a class="btn btn-default pull-right" href="{{ url_for('user.add_post') }}">Edit</a>
+                </div>
             </div>
         </div>
     {% endfor %}

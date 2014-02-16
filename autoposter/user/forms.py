@@ -39,11 +39,22 @@ class RegisterForm(Form):
         self.user = user
         return True
 
-NewPostBaseForm = model_form(Post, db_session=db.session, base_class=Form)
 
-DaysOfWeekForm = model_form(DaysOfWeek, db_session=db.session, base_class=Form)
+DaysOfWeekBaseForm = model_form(
+    DaysOfWeek, db_session=db.session, base_class=Form)
+
+
+class DaysOfWeekForm(DaysOfWeekBaseForm):
+    pass
+
+
+NewPostBaseForm = model_form(Post, db_session=db.session, base_class=Form)
 
 
 class NewPostForm(NewPostBaseForm):
     body = TextAreaField('Body')
     days = FormField(DaysOfWeekForm)
+
+    def __init__(self, *args, **kwargs):
+        super(NewPostForm, self).__init__(*args, **kwargs)
+        self.days.form.csrf_enabled = False

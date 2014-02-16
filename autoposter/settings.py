@@ -10,6 +10,7 @@ class Config(object):
     DEBUG_TB_ENABLED = True  # Disable Debug toolbar
     DEBUG_TB_INTERCEPT_REDIRECTS = False
     CACHE_TYPE = "simple"  # Can be "memcached", "redis", etc.
+    CSRF_ENABLED = True
 
 
 class ProdConfig(Config):
