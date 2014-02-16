@@ -1,17 +1,44 @@
-{% macro render_field(field, addon) %}
-  <div class="form-group">
-    {% if addon %}
-        <span class="input-group-addon">{{addon}}<span>
+{% macro render_bootstrap_field(field, id, addon) %}
+    {{ start_field(field) }}
+        <label class="control-label">{{ field.label.text }}</label>
+
+
+        <div {% if addon %} class="input-group" {% endif %}>
+            {% if addon %}<span class="input-group-addon">{{addon}}</span>{% endif %}
+            {{ render_field(field, id, **kwargs) }}
+            {{ field_errors(field) }}
+        </div>
+    {{ end_field() }}
+{% endmacro %}
+
+
+{% macro render_bootstrap_bool(field, id) %}
+    <div class="checkbox">
+        <label class="control-label">
+            {{ field(id=id or field.title, **kwargs)|safe }}{{ field.label }}
+            {{ field_errors(field) }}
+        </label>
+    </div>
+{% endmacro %}
+
+{% macro render_field(field, id) %}
+    {{ field(class='form-control', id=id or field.title, **kwargs)|safe }}
+{% endmacro %}
+
+{% macro field_errors(field) %}
+    {% if field.errors %}
+        {% for error in field.errors %}
+            <span class="help-inline">[{{ error }}]</span><br>
+        {% endfor %}
     {% endif %}
-    {{field.label}}
-    {{field(class_="form-control", **kwargs)|safe}}
-  </div>
-  {% if field.errors %}
-    <ul class=errors>
-    {% for error in field.errors %}
-      <li>{{ error }}</li>
-    {% endfor %}
-    </ul>
-  {% endif %}
-  </dd>
+{% endmacro %}
+
+
+{% macro start_field(field) %}
+    <div class="form-group {% if field.errors %} error {% endif %}">
+{% endmacro %}
+
+
+{% macro end_field() %}
+    </div>
 {% endmacro %}
