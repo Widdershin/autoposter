@@ -20,6 +20,11 @@ textarea {
   resize: vertical;
 }
 
+.labels
+{
+  float: right;
+}
+
 .container-narrow{
   margin: 0 auto;
   max-width: 700px;

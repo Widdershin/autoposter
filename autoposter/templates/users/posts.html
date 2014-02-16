@@ -3,12 +3,26 @@
 {% block content %}
     <div class="row">
         <h1>Posts</h1>
-        <a class="btn btn-default" href="{{ url_for('user.add_post') }}">Add</a>
+        <p><a class="btn btn-default" href="{{ url_for('user.add_post') }}">Add</a></p>
     </div>
     {% for post in posts %}
         <div class="row">
-            <p>{{post.title}}</p>
-            <p>{{post.body}}</p>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <span>/r/{{post.subreddit}} - {{post.title}}</span>
+
+                    <div class="labels">
+                        {% if post.sticky %}
+                            <span class="label label-primary">Sticky</span>
+                        {% endif %}
+
+                        {% if post.distinguish %}
+                            <span class="label label-success">Distinguish</span>
+                        {% endif %}
+                        </div>
+                    </div>
+                <div class="panel-body">{{post.body}}</div>
+            </div>
         </div>
     {% endfor %}
 {% endblock %}
