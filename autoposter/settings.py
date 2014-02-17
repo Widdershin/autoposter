@@ -25,10 +25,11 @@ class DevConfig(Config):
     '''Development configuration.'''
     ENV = 'dev'
     DEBUG = True
-    DB_NAME = "dev.db"
+    #DB_NAME = "dev.db"
     # Put the db file in project root
-    DB_PATH = os.path.join(Config.PROJECT_ROOT, DB_NAME)
-    SQLALCHEMY_DATABASE_URI = "sqlite:///{0}".format(DB_PATH)
+    #DB_PATH = os.path.join(Config.PROJECT_ROOT, DB_NAME)
+    #SQLALCHEMY_DATABASE_URI = "sqlite:///{0}".format(DB_PATH)
+    SQLALCHEMY_DATABASE_URI = "postgresql://postgres:admin@localhost/autoposter"
     DEBUG_TB_ENABLED = True
     ASSETS_DEBUG = True  # Don't bundle/minify static assets
     CACHE_TYPE = "simple"  # Can be "memcached", "redis", etc.
