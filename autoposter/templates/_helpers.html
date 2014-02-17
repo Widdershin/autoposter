@@ -1,6 +1,8 @@
-{% macro render_bootstrap_field(field, id, addon) %}
+{% macro render_bootstrap_field(field, id, addon, no_label) %}
     {{ start_field(field) }}
+        {% if not no_label %}
         <label class="control-label">{{ field.label.text }}</label>
+        {% endif %}
 
 
         <div {% if addon %} class="input-group" {% endif %}>
@@ -21,6 +23,15 @@
     </div>
 {% endmacro %}
 
+ {% macro render_bootstrap_day(field, id) %}
+    <div class="checkbox">
+        <label class="control-label ">
+            {{ field(id=id or field.title, **kwargs)|safe }}{{ field.label }}
+            {{ field_errors(field) }}
+        </label>
+    </div>
+{% endmacro %}
+
 {% macro render_field(field, id) %}
     {{ field(class='form-control', id=id or field.title, **kwargs)|safe }}
 {% endmacro %}
@@ -32,7 +43,6 @@
         {% endfor %}
     {% endif %}
 {% endmacro %}
-
 
 {% macro start_field(field) %}
     <div class="form-group {% if field.errors %} error {% endif %}">

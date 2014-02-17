@@ -1,7 +1,7 @@
 from datetime import datetime
 from flask_wtf import Form
 from wtforms import (TextField, PasswordField, TextAreaField, FormField,
-                     BooleanField)
+                     BooleanField, IntegerField)
 from wtforms.validators import DataRequired, Email, EqualTo, Length
 from wtforms.ext.sqlalchemy.orm import model_form
 from .models import User, Post, DaysOfWeek
@@ -46,12 +46,12 @@ DaysOfWeekBaseForm = model_form(
     DaysOfWeek, db_session=db.session, base_class=Form)
 
 
-class DaysOfWeekForm(DaysOfWeekBaseForm):
-    pass
+class DaysOfWeekForm(Form):
+    post_id = None
 
 
 class NewPostForm(Form):
-    title = TextField('String', validators=[
+    title = TextField('Title', validators=[
         DataRequired(), Length(min=3, max=300)])
 
     subreddit = TextField('Subreddit', validators=[
@@ -60,13 +60,22 @@ class NewPostForm(Form):
     distinguish = BooleanField('Distinguish')
     sticky = BooleanField('Sticky')
 
-    hour = TextField('Hour')
-    minute = TextField('Minute')
+    scheduled_hour = IntegerField('Hour')
+    scheduled_minute = IntegerField('Minute')
 
     body = TextAreaField('Body', validators=[
         Length(max=10000)])
-    days = FormField(DaysOfWeekForm)
+
+    monday = BooleanField('Mon')
+    tuesday = BooleanField('Tue')
+    wednesday = BooleanField('Wed')
+    thursday = BooleanField('Thu')
+    friday = BooleanField('Fri')
+    saturday = BooleanField('Sat')
+    sunday = BooleanField('Sun')
+
+    #days = FormField(DaysOfWeekForm)
 
     def __init__(self, *args, **kwargs):
         super(NewPostForm, self).__init__(*args, **kwargs)
-        self.days.form.csrf_enabled = False
+        #self.days.form.csrf_enabled = False

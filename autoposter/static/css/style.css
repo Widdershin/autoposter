@@ -20,6 +20,10 @@ textarea {
   resize: vertical;
 }
 
+.time-field{
+  width: 3em;
+}
+
 .container-narrow{
   margin: 0 auto;
   max-width: 700px;

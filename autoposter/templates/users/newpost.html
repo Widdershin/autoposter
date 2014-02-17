@@ -1,9 +1,9 @@
 {% extends "layout.html" %}
-{% from "_helpers.html" import render_bootstrap_field, render_bootstrap_bool %}
+{% from "_helpers.html" import render_bootstrap_field, render_bootstrap_bool, render_bootstrap_day %}
 
 {% block content %}
     <div class="row">
-        <h2>New Form!</h2>
+        <h2>{{title}}</h2>
     </div>
     <div class="row">
         <div class="col-md-9" role="main">
@@ -12,7 +12,20 @@
                 {{ render_bootstrap_field(form.title, placeholder="test post please ignore") }}
                 {{ render_bootstrap_field(form.subreddit, addon="/r/") }}
                 {{ render_bootstrap_field(form.body) }}
-                <label>Schedule:</label>
+                <div class="form-inline">
+                    <label>Scheduled Time:</label>
+                    {{ render_bootstrap_field(form.scheduled_hour, no_label=True, class="form-control time-field") }}:{{ render_bootstrap_field(form.scheduled_minute, no_label=True, class="form-control time-field") }}
+                </div>
+                <div class="form-inline">
+                    <label>Scheduled Days:</label>
+                    {{ render_bootstrap_day(form.monday, class="form-control")}}
+                    {{ render_bootstrap_day(form.tuesday, class="form-control")}}
+                    {{ render_bootstrap_day(form.wednesday, class="form-control")}}
+                    {{ render_bootstrap_day(form.thursday, class="form-control")}}
+                    {{ render_bootstrap_day(form.friday, class="form-control")}}
+                    {{ render_bootstrap_day(form.saturday, class="form-control")}}
+                    {{ render_bootstrap_day(form.sunday, class="form-control")}}
+                </div>
                 {{ render_bootstrap_bool(form.distinguish) }}
                 {{ render_bootstrap_bool(form.sticky) }}
                 <button type="submit" class="btn btn-default">Submit</button>

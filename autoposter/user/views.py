@@ -29,7 +29,7 @@ def add_post():
 
         return redirect(url_for('user.posts'))
 
-    return render_template("users/newpost.html", form=form)
+    return render_template("users/newpost.html", form=form, title="New Post")
 
 
 @blueprint.route("/posts/edit/<id>", methods=('GET', 'POST'))
@@ -52,4 +52,4 @@ def edit_post(id):
 
         return redirect(url_for('user.posts'))
 
-    return render_template("users/newpost.html", form=form)
+    return render_template("users/newpost.html", form=form, title="Edit Post")
