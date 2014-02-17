@@ -1,5 +1,6 @@
 from flask_wtf import Form
-from wtforms import TextField, PasswordField, TextAreaField, FormField
+from wtforms import (TextField, PasswordField, TextAreaField, FormField,
+                     BooleanField)
 from wtforms.validators import DataRequired, Email, EqualTo, Length
 from wtforms.ext.sqlalchemy.orm import model_form
 from .models import User, Post, DaysOfWeek
@@ -48,11 +49,23 @@ class DaysOfWeekForm(DaysOfWeekBaseForm):
     pass
 
 
-NewPostBaseForm = model_form(Post, db_session=db.session, base_class=Form)
+NewPostBaseForm = model_form(Post, db_session=db.session, base_class=Form,
+    field_args={"title":
+                {"validators": [DataRequired(), Length(min=3, max=300)]
+}})
 
 
-class NewPostForm(NewPostBaseForm):
-    body = TextAreaField('Body')
+class NewPostForm(Form):
+    title = TextField('String', validators=)
+
+    subreddit = TextField('Subreddit', validators=[
+        DataRequired(), Length(min=3, max=300)])
+
+    distinguish = BooleanField('Distinguish')
+    sticky = BooleanField('Distinguish')
+
+    body = TextAreaField('Body', validators=[
+        Length(max=10000)])
     days = FormField(DaysOfWeekForm)
 
     def __init__(self, *args, **kwargs):
