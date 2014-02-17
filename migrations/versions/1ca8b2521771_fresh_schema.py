@@ -1,13 +1,13 @@
 """Fresh schema
 
-Revision ID: 18fcaf0982e4
+Revision ID: 1ca8b2521771
 Revises: None
-Create Date: 2014-02-13 22:05:57.611000
+Create Date: 2014-02-17 23:44:54.012000
 
 """
 
 # revision identifiers, used by Alembic.
-revision = '18fcaf0982e4'
+revision = '1ca8b2521771'
 down_revision = None
 
 from alembic import op
@@ -38,6 +38,9 @@ def upgrade():
     sa.Column('distinguish', sa.Boolean(), nullable=True),
     sa.Column('sticky', sa.Boolean(), nullable=True),
     sa.Column('user_id', sa.Integer(), nullable=True),
+    sa.Column('scheduled_hour', sa.Integer(), nullable=True),
+    sa.Column('scheduled_minute', sa.Integer(), nullable=True),
+    sa.Column('next_fire', sa.DateTime(), nullable=True),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
