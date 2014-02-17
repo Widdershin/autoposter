@@ -1,3 +1,4 @@
+from datetime import datetime
 from flask_wtf import Form
 from wtforms import (TextField, PasswordField, TextAreaField, FormField,
                      BooleanField)
@@ -57,7 +58,10 @@ class NewPostForm(Form):
         DataRequired(), Length(min=3, max=300)])
 
     distinguish = BooleanField('Distinguish')
-    sticky = BooleanField('Distinguish')
+    sticky = BooleanField('Sticky')
+
+    hour = TextField('Hour')
+    minute = TextField('Minute')
 
     body = TextAreaField('Body', validators=[
         Length(max=10000)])
