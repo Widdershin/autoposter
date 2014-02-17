@@ -59,6 +59,8 @@ class Post(CRUDMixin, db.Model):
     distinguish = db.Column(db.Boolean)
     sticky = db.Column(db.Boolean)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    scheduled_time = db.Column(db.Time)
+    next_fire = db.Column(db.DateTime)
 
     def __init__(self, title="", subreddit="", body="", days=[False] * 7,
                  distinguish=False, sticky=False):
