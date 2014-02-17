@@ -142,6 +142,8 @@ class TestPostCreate(DbTestCase, LoggedInUserCase):
         form['body'] = "This is a test post."
         form['distinguish'] = False
         form['sticky'] = False
+        form['scheduled_hour'] = 12
+        form['scheduled_minute'] = 00
 
         res = form.submit().follow()
         assert_equal(res.status_code, 200)
