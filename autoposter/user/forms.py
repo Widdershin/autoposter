@@ -49,14 +49,9 @@ class DaysOfWeekForm(DaysOfWeekBaseForm):
     pass
 
 
-NewPostBaseForm = model_form(Post, db_session=db.session, base_class=Form,
-    field_args={"title":
-                {"validators": [DataRequired(), Length(min=3, max=300)]
-}})
-
-
 class NewPostForm(Form):
-    title = TextField('String', validators=)
+    title = TextField('String', validators=[
+        DataRequired(), Length(min=3, max=300)])
 
     subreddit = TextField('Subreddit', validators=[
         DataRequired(), Length(min=3, max=300)])
