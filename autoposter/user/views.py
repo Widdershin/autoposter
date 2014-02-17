@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from flask import Blueprint, render_template, redirect, url_for, flash
+from flask import Blueprint, render_template, redirect, url_for, flash, abort
 from flask.ext.login import login_required, current_user
 from autoposter.user.models import Post
 from .forms import NewPostForm
@@ -36,6 +36,9 @@ def add_post():
 @login_required
 def edit_post(id):
     post = Post.query.get(id)
+
+    if post not in current_user.posts:
+        return abort(401)
 
     form = NewPostForm(obj=post)
 
