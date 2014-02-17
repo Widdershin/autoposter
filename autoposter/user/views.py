@@ -17,16 +17,14 @@ def posts():
 @blueprint.route("/posts/add", methods=('GET', 'POST'))
 @login_required
 def add_post():
-    new_post = Post()
-    form = NewPostForm(obj=new_post)
+    form = NewPostForm()
 
     if form.validate_on_submit():
-
+        new_post = Post()
         form.populate_obj(new_post)
+        current_user.posts.append(new_post)
 
         new_post.save()
-
-        current_user.posts.append(new_post)
         current_user.save()
 
         return redirect(url_for('user.posts'))
