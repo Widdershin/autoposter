@@ -12,6 +12,7 @@
                 {{ render_bootstrap_field(form.title, placeholder="test post please ignore") }}
                 {{ render_bootstrap_field(form.subreddit, addon="/r/") }}
                 {{ render_bootstrap_field(form.body) }}
+                <label>Schedule:</label>
                 {{ render_bootstrap_bool(form.distinguish) }}
                 {{ render_bootstrap_bool(form.sticky) }}
                 <button type="submit" class="btn btn-default">Submit</button>

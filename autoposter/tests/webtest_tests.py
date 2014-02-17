@@ -143,5 +143,5 @@ class TestPostCreate(DbTestCase, LoggedInUserCase):
         form['distinguish'] = False
         form['sticky'] = False
 
-        res = form.submit().maybe_follow()
+        res = form.submit().follow()
         assert_equal(res.status_code, 200)
