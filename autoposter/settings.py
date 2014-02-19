@@ -3,7 +3,7 @@ import os
 
 
 class Config(object):
-    SECRET_KEY = 'shhhh'
+    SECRET_KEY = os.environ['AUTOPOSTER_SECRET']
     APP_DIR = os.path.abspath(os.path.dirname(__file__))  # This directory
     PROJECT_ROOT = os.path.abspath(os.path.join(APP_DIR, os.pardir))
     BCRYPT_LEVEL = 13
