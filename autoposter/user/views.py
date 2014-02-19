@@ -2,6 +2,7 @@
 from flask import Blueprint, render_template, redirect, url_for, flash, abort
 from flask.ext.login import login_required, current_user
 from autoposter.user.models import Post
+from autoposter.utils import flash_errors
 from .forms import NewPostForm
 
 blueprint = Blueprint("user", __name__, url_prefix='/users',
@@ -27,7 +28,11 @@ def add_post():
         new_post.save()
         current_user.save()
 
+        flash("Updated {}".format(new_post.title))
+
         return redirect(url_for('user.posts'))
+    else:
+        flash_errors(form)
 
     return render_template("users/newpost.html", form=form, title="New Post")
 
@@ -35,7 +40,7 @@ def add_post():
 @blueprint.route("/posts/edit/<id>", methods=('GET', 'POST'))
 @login_required
 def edit_post(id):
-    post = Post.query.get(id)
+    post = Post.query.get_or_404(id)
 
     if post not in current_user.posts:
         return abort(401)
@@ -43,7 +48,6 @@ def edit_post(id):
     form = NewPostForm(obj=post)
 
     if form.validate_on_submit():
-
         form.populate_obj(post)
 
         post.save()
@@ -51,5 +55,7 @@ def edit_post(id):
         flash("{} saved successfully!".format(post.title))
 
         return redirect(url_for('user.posts'))
+    else:
+        flash_errors(form)
 
     return render_template("users/newpost.html", form=form, title="Edit Post")
