@@ -50,6 +50,12 @@ class DaysOfWeekForm(Form):
     post_id = None
 
 
+class DayField(BooleanField):
+
+    def populate_obj(self, obj, name):
+        setattr(obj.days, name, self.data)
+
+
 class NewPostForm(Form):
     title = TextField('Title', validators=[
         DataRequired(), Length(min=3, max=300)])
@@ -66,16 +72,25 @@ class NewPostForm(Form):
     body = TextAreaField('Body', validators=[
         Length(max=10000)])
 
-    monday = BooleanField('Mon')
-    tuesday = BooleanField('Tue')
-    wednesday = BooleanField('Wed')
-    thursday = BooleanField('Thu')
-    friday = BooleanField('Fri')
-    saturday = BooleanField('Sat')
-    sunday = BooleanField('Sun')
+    monday = DayField('Mon')
+    tuesday = DayField('Tue')
+    wednesday = DayField('Wed')
+    thursday = DayField('Thu')
+    friday = DayField('Fri')
+    saturday = DayField('Sat')
+    sunday = DayField('Sun')
 
     #days = FormField(DaysOfWeekForm)
 
-    def __init__(self, *args, **kwargs):
-        super(NewPostForm, self).__init__(*args, **kwargs)
-        #self.days.form.csrf_enabled = False
+    def __init__(self, obj=None, **kwargs):
+        super(NewPostForm, self).__init__(obj=obj, **kwargs)
+        self.days = OrderedDict([
+            ("monday", self.monday), ("tuesday", self.tuesday),
+            ("wednesday", self.wednesday), ("thursday", self.thursday),
+            ("friday", self.friday), ("saturday", self.saturday),
+            ("sunday", self.sunday)
+        ])
+
+        if obj:
+            for day, other_day in zip(self.days.values(), obj.days):
+                day.process_data(other_day)
