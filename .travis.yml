@@ -6,4 +6,4 @@ install: pip install -r requirements/dev.txt --allow-external twill --allow-unve
 script: nosetests
 env:
   global:
-    secure: BCsiij99oa0y7w5plmfwLq1LKXzZ8vsqv92+e2GKnHQ/Mdg9xCOQWwZGdGN7NpGSuNU0YTqIqVSQ/qFQZiIUnnqvcPsLQEtrfn+q2oTcJwLNkSTf2FE3xBKHdjG8XhvKXzB5yYyYI+0Lf6SKnDI4jMwWUzC29FB9mmSYLTEQ+Ec=
+  - secure: Je0PFfBZaBv/Je8QUMcEHrS3bxcMK7YMpbrBIKkdAuxNLmoqzk0MWJwkdalU4+lns87YvRWPpNOOF68gDgFxAWii9+k+PZihSsvBQq3ON1+oC0eLT3Owzl4D+9WJxmJTmh6ZtWCNLLffEieeAqj1cUpY1hQG/Gh7Gta9qnDQxxI=
