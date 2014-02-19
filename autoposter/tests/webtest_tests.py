@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+## -*- coding: utf-8 -*-
 '''Functional tests using WebTest.
 
 See: http://webtest.readthedocs.org/
@@ -9,7 +9,7 @@ from nose.tools import *  # PEP8 asserts
 
 from ..user.models import User
 from .base import DbTestCase, LoggedInUserCase
-from .factories import UserFactory
+from .factories import UserFactory, PostFactory
 
 
 class TestLoggingIn(DbTestCase):
@@ -124,7 +124,7 @@ class TestRegistering(DbTestCase):
         assert_in("Username already registered", res)
 
 
-class TestPostCreate(DbTestCase, LoggedInUserCase):
+class TestPosts(DbTestCase, LoggedInUserCase):
     def setUp(self):
         self.w = TestApp(self.app)
         self.user = UserFactory(password="myprecious")
@@ -147,3 +147,35 @@ class TestPostCreate(DbTestCase, LoggedInUserCase):
 
         res = form.submit().follow()
         assert_equal(res.status_code, 200)
+
+    def test_can_submit_edit_form_without_changes(self):
+        self._login(self.w, self.user)
+
+        post = PostFactory()
+
+        self.user.posts.append(post)
+        self.user.save()
+
+        res = self.w.get(url_for('user.edit_post', id=post.id))
+        form = res.forms["newPost"]
+        res = form.submit().follow()
+
+
+    def test_can_edit(self):
+        self._login(self.w, self.user)
+
+        post = PostFactory()
+
+        self.user.posts.append(post)
+        self.user.save()
+
+        res = self.w.get(url_for('user.edit_post', id=post.id))
+
+        new_title = "this is a test title"
+
+        form = res.forms["newPost"]
+
+        form['title'] = new_title
+
+        res = form.submit().follow()
+        assert_equal(post.title, new_title)
