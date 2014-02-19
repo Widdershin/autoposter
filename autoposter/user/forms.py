@@ -1,10 +1,10 @@
-from datetime import datetime
+from collections import OrderedDict
 from flask_wtf import Form
-from wtforms import (TextField, PasswordField, TextAreaField, FormField,
+from wtforms import (TextField, PasswordField, TextAreaField,
                      BooleanField, IntegerField)
 from wtforms.validators import DataRequired, Email, EqualTo, Length
 from wtforms.ext.sqlalchemy.orm import model_form
-from .models import User, Post, DaysOfWeek
+from .models import User, DaysOfWeek
 from autoposter.database import db
 
 
