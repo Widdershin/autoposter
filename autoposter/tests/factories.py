@@ -2,10 +2,13 @@
 from factory import (Sequence, PostGenerationMethodCall,
                      LazyAttribute, lazy_attribute)
 from factory.alchemy import SQLAlchemyModelFactory
+from factory.fuzzy import FuzzyInteger 
 import random
 
 from autoposter.user.models import User, Post, DaysOfWeek
 from autoposter.database import db
+
+from datetime import datetime
 
 
 @lazy_attribute
@@ -40,3 +43,6 @@ class PostFactory(SQLAlchemyModelFactory):
     days = random_days
     distinguish = random.choice([True, False])
     sticky = random.choice([True, False])
+    scheduled_hour = FuzzyInteger(0, 23)
+    scheduled_minute = FuzzyInteger(0, 59)
+    
