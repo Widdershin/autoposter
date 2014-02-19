@@ -64,13 +64,16 @@ class Post(CRUDMixin, db.Model):
     next_fire = db.Column(db.DateTime)
 
     def __init__(self, title="", subreddit="", body="", days=[False] * 7,
-                 distinguish=False, sticky=False, scheduled_hour=0, scheduled_minute=0):
+                 distinguish=False, sticky=False,
+                 scheduled_hour=0, scheduled_minute=0):
         self.title = title
         self.subreddit = subreddit
         self.body = body
         self.days = DaysOfWeek(days)
         self.days.save()
         self.distinguish = distinguish
+        self.scheduled_minute = scheduled_minute
+        self.scheduled_hour = scheduled_hour
 
 
 class DaysOfWeek(CRUDMixin, db.Model):
