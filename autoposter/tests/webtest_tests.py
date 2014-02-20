@@ -160,7 +160,6 @@ class TestPosts(DbTestCase, LoggedInUserCase):
         form = res.forms["newPost"]
         res = form.submit().follow()
 
-
     def test_can_edit(self):
         self._login(self.w, self.user)
 
@@ -175,7 +174,11 @@ class TestPosts(DbTestCase, LoggedInUserCase):
 
         form = res.forms["newPost"]
 
+        previous_day_value = form['monday']
+
         form['title'] = new_title
+        form['monday'] = not previous_day_value
 
         res = form.submit().follow()
         assert_equal(post.title, new_title)
+        assert_equal(post.days.monday, not previous_day_value)
