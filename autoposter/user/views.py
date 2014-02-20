@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from flask import Blueprint, render_template, redirect, url_for, flash, abort
+from flask import Blueprint, render_template, redirect, url_for, flash, abort, request
 from flask.ext.login import login_required, current_user
 from autoposter.user.models import Post
 from autoposter.utils import flash_errors
@@ -48,9 +48,14 @@ def edit_post(id):
     form = NewPostForm(obj=post)
 
     if form.validate_on_submit():
-        form.populate_obj(post)
+        for param, value in request.form.iteritems():
+            if param in form.days.keys():
+                setattr(post.days, param, bool(value))
+            else:
+                setattr(post, param, value)
 
         post.save()
+        post.days.save()
 
         flash("{} saved successfully!".format(post.title))
 
