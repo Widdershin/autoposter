@@ -40,7 +40,7 @@ class PostFactory(SQLAlchemyModelFactory):
     title = "test post please ignore"
     subreddit = "widdershiny"
     body = "This is a test post..."
-    days = random_days
+    days = [True] + [False] * 6
     distinguish = random.choice([True, False])
     sticky = random.choice([True, False])
     scheduled_hour = FuzzyInteger(0, 23)
