@@ -1,15 +1,16 @@
 # -*- coding: utf-8 -*-
-from factory import (Sequence, PostGenerationMethodCall,
-                     LazyAttribute, lazy_attribute)
-from factory.alchemy import SQLAlchemyModelFactory
-from factory.fuzzy import FuzzyInteger 
-import random
-
 from autoposter.user.models import User, Post, DaysOfWeek
 from autoposter.database import db
 
 from datetime import datetime
+from factory import (Sequence, PostGenerationMethodCall,
+                     LazyAttribute, lazy_attribute)
+from factory.alchemy import SQLAlchemyModelFactory
+from factory.fuzzy import FuzzyInteger 
+import logging
+import random
 
+logging.getLogger("factory").setLevel(logging.WARN)
 
 @lazy_attribute
 def random_days(self):
