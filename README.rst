@@ -4,7 +4,7 @@ Reddit Autoposter
 
 A webapp to automatically post Reddit threads daily or weekly.
 
-**I am no longer working on autposter as /u/Deimorz's Automoderator has [updated to include this functionality.](http://www.reddit.com/r/AutoModerator/comments/1z7rlu/now_available_for_testing_wikiconfigurable/)**
+I am no longer working on autposter as /u/Deimorz's Automoderator has updated to include this functionality_.
 
 
 Quickstart
@@ -62,3 +62,5 @@ This will generate a new migration script. Then run:
 To apply the migration.
 
 For a full migration command reference, run ``python manage.py db --help``.
+
+.. _functionality: http://www.reddit.com/r/AutoModerator/comments/1z7rlu/now_available_for_testing_wikiconfigurable/
