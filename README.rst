@@ -4,6 +4,8 @@ Reddit Autoposter
 
 A webapp to automatically post Reddit threads daily or weekly.
 
+**I am no longer working on autposter as /u/Deimorz's Automoderator has [updated to include this functionality.](http://www.reddit.com/r/AutoModerator/comments/1z7rlu/now_available_for_testing_wikiconfigurable/)**
+
 
 Quickstart
 ----------
